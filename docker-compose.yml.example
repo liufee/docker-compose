@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+  nginx:
+      image: liufee/nginx
+      container_name: nginx
+      build:
+          context: ./nginx
+          args:
+              - NGINX_VER=1.12.2
+      ports:
+          - 80:80
+      links:
+          - php-fpm
+      depends_on:
+          - php-fpm
+      networks:
+          - public
+      volumes:
+          - ./nginx/conf:/etc/nginx
+          - ./logs/nginx:/var/log/nginx
+          - ./nginx/www:/www
+
+  php-fpm:
+      image: liufee/php
+      container_name: php-fpm
+      build:
+          context: ./php
+          args:
+              - PHP_VER=7.1.12
+      ports:
+          - 9000:9000
+      links:
+          - mysql
+      depends_on:
+          - mysql
+      networks:
+          - public
+      volumes:
+          - ./logs/php-fpm:/usr/local/php/var/log
+          - ./nginx/www:/www
+
+  mysql:
+      image: liufee/mysql
+      container_name: mysql
+      build:
+          context: ./mysql
+      environment:
+          - MYSQL_PASSWORD=123456
+      ports:
+          - 3306:3306
+      networks:
+          - public
+      volumes:
+          - ./logs/mysql:/var/log/mysql
+          - ./mysql/data:/data/mysql
+
+networks:
+  public:
+      driver: bridge
