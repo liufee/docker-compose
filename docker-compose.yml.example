@@ -10,6 +10,7 @@ services:
               - NGINX_VER=1.12.2
       ports:
           - 80:80
+          - 443:443
       links:
           - php-fpm
       depends_on:

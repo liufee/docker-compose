@@ -34,7 +34,7 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
      && source /etc/profile
 
 
-EXPOSE 80
+EXPOSE 80 443
 
 
 CMD  ["/usr/local/nginx/sbin/nginx"]
