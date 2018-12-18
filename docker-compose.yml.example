@@ -15,6 +15,7 @@ services:
           - php-fpm
       depends_on:
           - php-fpm
+          - java
       networks:
           - public
       volumes:
@@ -55,6 +56,17 @@ services:
       volumes:
           - ./logs/mysql:/var/log/mysql
           - ./mysql/data:/data/mysql
+  java:
+      image: liufee/java
+      container_name: java
+      build:
+        context: ./java
+      ports:
+        - 9999:9999
+      volumes:
+        - ./java/app:/app
+      networks:
+        - public
 
 networks:
   public:
