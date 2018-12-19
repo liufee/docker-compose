@@ -17,7 +17,4 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
      && source /etc/profile
 
 
-EXPOSE 3306
-
-
-CMD ["/usr/local/jdk/bin/java -jar /app/app.jar"]
+CMD ["/usr/local/jdk/bin/java", "-jar", "/app/app.jar"]
