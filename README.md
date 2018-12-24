@@ -1,6 +1,6 @@
 Docker lnmp
 =================
-基于最新版CentOS官方镜像,docker-compose编排，源码编译安装mysql、php、nginx
+基于最新版CentOS官方镜像,docker-compose编排，源码编译安装mysql、php、nginx、java、nodejs
 
 
 简介
@@ -12,6 +12,10 @@ Docker lnmp
 - [x] nginx1.12.2
 
 - [x] mysql5.7.21 默认root密码为123456，可以在docker-compose中指定
+
+- [x] java
+
+- [x] node8.11.4
 
 >可以在docker-compose.yml services指定版本
 
@@ -29,6 +33,11 @@ Docker lnmp
         build:
             args:
                 - PHP_VER=7.1.2
+                
+    node:
+        build:
+            args:
+                - NODE_VER=8.11.4
 
 
 快速开始
