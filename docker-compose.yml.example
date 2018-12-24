@@ -60,13 +60,46 @@ services:
       image: liufee/java
       container_name: java
       build:
-        context: ./java
+          context: ./java
+      environment:
+          - MYSQL_HOST=mysql
+          - MYSQL_PORT=3306
+          - MYSQL_USERNAME=root
+          - MYSQL_PASSWORD=123456
+          - DATABASE=test
+          - LISTEN_PORT=8082
       ports:
-        - 9999:9999
+      - 8082:8082
       volumes:
-        - ./java/app:/app
+      - /www:/www
+      command: [/bin/bash, /www/java/springboot/start.sh]
+      depends_on:
+      - mysql
+      networks:
+      - public
+
+  node:
+      image: liufee/node
+      container_name: node
+      build:
+          context: ./node
+          args:
+            - NODE_VER=8.11.4
+      environment:
+          - NODE_ENV=prod
+          - LISTEN_PORT=3000
+      ports:
+        - 3000:3000
+      links:
+        - mysql
+      depends_on:
+        - mysql
       networks:
         - public
+      volumes:
+        - /www:/www
+      working_dir: /www/node/koa
+      command: [/usr/local/node/bin/node, /www/node/koa/app.js]
 
 networks:
   public:
