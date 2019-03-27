@@ -72,7 +72,7 @@ services:
       - 8082:8082
       volumes:
       - /www:/www
-      command: [/bin/bash, /www/java/springboot/start.sh]
+      command: [/usr/local/java/bin/java, -jar, /www/app/app.jar]
       depends_on:
       - mysql
       networks:
